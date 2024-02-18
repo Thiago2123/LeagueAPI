@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <link rel="stylesheet" href="custom.css">
+    <title>TM League - Invocador</title>
+</head>
+<body>
+
+    <!-- INICIO NAVBAR -->
+   <nav class="navbar">
+    <div class="navbar-content">
+        <div class="bars">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <img src="images/logo/logo.png" alt="logo" class="logo">
+    </div>
+    <div class="navbar-content">
+        <div class="notification">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notification-number">5</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-content">
+                    <li>
+                        <img src="images/users/user.jpg" alt="Usuario" width="40">
+                        <div class="text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/users/user.jpg" alt="Usuario" width="40">
+                        <div class="text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <div class="avatar">
+            <img src="images/users/user.jpg" alt="Usuario">
+            <div class="dropdown-menu setting">
+                <div class="item">
+                    <span class="fa-solid fa-user"></span> Perfil
+                </div>
+                <div class="item">
+                    <span class="fa-solid fa-gear"></span> Configuração
+                </div>
+                <div class="item">
+                    <span class="fa-solid fa-arrow-right-from-bracket"></span> Sair
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- FIM NAVBAR -->
+<div class="content">
+    <!-- INICIO SIDEBAR -->
+    <div class="sidebar">
+        <a href="index.html" class="sidebar-nav">
+            <i class="fa-solid fa-house icon"></i>
+            <span>Campeões</span>
+        </a>
+        <a href="invocador.html" class="sidebar-nav active">
+            <i class="fa-solid fa-users icon"></i>
+            <span>invocadores</span>
+        </a>
+        <!-- <a href="login.html" class="sidebar-nav">
+            <i class="fa-solid fa-arrow-right-from-bracket icon"></i>
+            <span>Sair</span>
+        </a> -->
+    </div>
+    <!-- FIM SIDEBAR -->
+
+    
+</div>
+
+
+
+
+    <div>
+        <!-- <input type="text" id="input_nome"> -->
+        <button class="btn btn-warning" onclick="pegarIdSummoner()">Procurar id</button>
+        <br><br>
+      
+    </div>
+    <div>
+        <input type="text" id="input_nome">
+        <button onclick="pegarPartidaOnline()">Procurar partida</button>
+        <div id="msg">a</div>
+
+        <table id="tabela" style="width:100%; text-align: center; text-wrap: nowrap;">
+            <tr id="tabela_titulo">
+              
+            </tr>
+            <tr id="tabela_dado">
+             
+            </tr>
+        </table>
+    </div>
+
+    <br>
+
+
+
+    <script src="custom.js"></script>
+
+</body>
+</html>
+
+<style>
+    table, th, td {
+        border:1px solid black;
+    }
+
+
+    
+</style>

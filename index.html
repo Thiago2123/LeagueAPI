@@ -4,47 +4,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <title>lol</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <link rel="stylesheet" href="custom.css">
+
+    <title>TM League - Campeoes</title>
 </head>
 <body>
 
-    <div>
-        <!-- <input type="text" id="input_nome"> -->
-        <button onclick="pegarIdSummoner()">Procurar id</button>
-        <br><br>
-        <!-- <div id="id">a</div>
-        <div id="nome">a</div> -->
-
-        <!-- <table id="tabela" style="width:100%; text-align: center; text-wrap: nowrap;">
-            <tr id="tabela_titulo">
-              
-            </tr>
-            <tr id="tabela_dado">
-             
-            </tr>
-        </table> -->
+   <!-- INICIO NAVBAR -->
+   <nav class="navbar">
+    <div class="navbar-content">
+        <div class="bars">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <img src="images/logo/logo.png" alt="logo" class="logo">
     </div>
-    <div>
-        <input type="text" id="input_nome">
-        <button onclick="pegarPartidaOnline()">Procurar partida</button>
-        <div id="msg">a</div>
-
-        <table id="tabela" style="width:100%; text-align: center; text-wrap: nowrap;">
-            <tr id="tabela_titulo">
-              
-            </tr>
-            <tr id="tabela_dado">
-             
-            </tr>
-        </table>
+    <div class="navbar-content">
+        <div class="notification">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notification-number">5</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-content">
+                    <li>
+                        <img src="images/users/user.jpg" alt="Usuario" width="40">
+                        <div class="text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/users/user.jpg" alt="Usuario" width="40">
+                        <div class="text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <div class="avatar">
+            <img src="images/users/user.jpg" alt="Usuario">
+            <div class="dropdown-menu setting">
+                <div class="item">
+                    <span class="fa-solid fa-user"></span> Perfil
+                </div>
+                <div class="item">
+                    <span class="fa-solid fa-gear"></span> Configuração
+                </div>
+                <div class="item">
+                    <span class="fa-solid fa-arrow-right-from-bracket"></span> Sair
+                </div>
+            </div>
+        </div>
     </div>
-
-    <br>
-
-
-
-
-    <img src="" alt="teste" id="img">
+</nav>
+<!-- FIM NAVBAR -->
+<div class="content">
+    <!-- INICIO SIDEBAR -->
+    <div class="sidebar">
+        <a href="index.html" class="sidebar-nav active">
+            <i class="fa-solid fa-house icon"></i>
+            <span>Campeões</span>
+        </a>
+        <a href="invocador.html" class="sidebar-nav">
+            <i class="fa-solid fa-users icon"></i>
+            <span>invocadores</span>
+        </a>
+        <!-- <a href="login.html" class="sidebar-nav">
+            <i class="fa-solid fa-arrow-right-from-bracket icon"></i>
+            <span>Sair</span>
+        </a> -->
+    </div>
+    <!-- FIM SIDEBAR -->
+    <div class="wrapper">
+        <div class="row">
+            <div class="box-img" id="box-img"> </div>
+        </div>
+        <div class="row">
+            
+            
+            <!-- Modal CHAMPION-->
+            <div class="modal fade modal-dark" id="modalChampion" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="tituloModalChampion"></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div id="bodyModalChampion" class="modal-body" style="display: flex; gap: 20px;">
+                            <!-- <div id="carouselExampleDark" class="carousel carousel-dark slide">
+                                <div class="carousel-indicators">
+                                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active" data-bs-interval="10000">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                    <div class="carousel-caption d-none d-md-block">
+                                      <h5>First slide label</h5>
+                                      <p>Some representative placeholder content for the first slide.</p>
+                                    </div>
+                                  </div>
+                                  <div class="carousel-item" data-bs-interval="2000">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                    <div class="carousel-caption d-none d-md-block">
+                                      <h5>Second slide label</h5>
+                                      <p>Some representative placeholder content for the second slide.</p>
+                                    </div>
+                                  </div>
+                                  <div class="carousel-item" data-bs-interval="3000">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                    <div class="carousel-caption d-none d-md-block">
+                                      <h5>Second slide label</h5>
+                                      <p>Some representative placeholder content for the second slide.</p>
+                                    </div>
+                                  </div>
+                                  <div class="carousel-item">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                    <div class="carousel-caption d-none d-md-block">
+                                      <h5>Third slide label</h5>
+                                      <p>Some representative placeholder content for the third slide.</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Next</span>
+                                </button>
+                              </div> -->
+                        
+                              <img id="imgModalChampion" src="" alt="imgChampion" width="500px" height="500px">
+                              <div>
+                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="pills-lore-tab" data-bs-toggle="pill" data-bs-target="#pills-lore" type="button" role="tab" aria-controls="pills-lore" aria-selected="true">Lore</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-skins-tab" data-bs-toggle="pill" data-bs-target="#pills-skins" type="button" role="tab" aria-controls="pills-skins" aria-selected="false">Skins</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-habilidade-tab" data-bs-toggle="pill" data-bs-target="#pills-habilidade" type="button" role="tab" aria-controls="pills-habilidade" aria-selected="false">Habilidades</button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active" id="pills-lore" role="tabpanel" aria-labelledby="pills-lore-tab" tabindex="0">
+                                            <h2 id="subTitleModalChampion" class="subTitleModalChampion"></h2>
+                                            <div id="loreModalChampion" class="loreModalChampion"></div>
+        
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-skins" role="tabpanel" aria-labelledby="pills-skins-tab" tabindex="0">
+                                            <h2>Skins</h2>
+                                            <div>
+                                                <div id="divSkinsModalChampion" class="divSkinsModalChampion" style="display: none;">
+                                                    
+                                            </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-habilidade" role="tabpanel" aria-labelledby="pills-habilidade-tab" tabindex="0">
+                                            <h2>Habilidades</h2>
+                                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error necessitatibus quasi omnis possimus aut corporis odit? Saepe porro, numquam natus error molestias ipsa facere voluptatibus sequi veniam, maiores quibusdam illo.</div>
+                                        </div>
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<!-- FIM CONTEUDO -->
 
 
 
@@ -57,4 +199,41 @@
     table, th, td {
         border:1px solid black;
     }
+
+    .modal-dark .modal-content {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .loreModalChampion{
+        padding: 10px;
+        text-align: justify;
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    .subTitleModalChampion{
+        font-size: 30px;
+        font-weight: 900;
+        font-family: 'Ubuntu';
+        padding-left: 10px;
+
+    }
+
+    .divSkinsModalChampion{
+        position: absolute;
+        display: flex;
+        gap: 50px;
+    }
+
+    .divSkinsModalChampion img{
+        width: 300px;
+        height: 300px;
+    }
+    
+
+
+    /* INICIO SLIDER */
+    
+    /* FIM SLIDER */
+    
 </style>
