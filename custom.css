@@ -277,3 +277,62 @@ body{
     transform: scale(1.15);
     opacity: 1;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* INICIO RODAPE */
+
+footer{
+    background: var(--four-bg-color);
+    padding: 25px 23px;
+    color: var(--active-color);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 0 40px 10px var(--sombreado-section);
+}
+
+footer .footer-nav{
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+footer .avatar-icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 5px;
+}
+
+footer .avatar-icons i{
+    color: var(--second-color);
+    font-size: 25px;
+}
+
+footer .avatar-icons i:hover{
+    color: var(--site-color);
+}
+
+
+footer span a{
+    color: var(--active-color);
+}
+
+footer span a:hover{
+    color: var(--site-color);
+}
+
+/* FIM RODAPE */

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="custom.css">
 
-    <title>TM League - Campeoes</title>
+    <link rel="shortcut icon" href="imgs/favicon.ico" type="image/x-icon">
+    <title>LolPedia</title>
 </head>
 <body>
 
@@ -20,9 +20,10 @@
         <div class="bars">
             <i class="fa-solid fa-bars"></i>
         </div>
-        <img src="images/logo/logo.png" alt="logo" class="logo">
+        <img src="imgs/logo.png" alt="logo" class="logo"> 
+        <div style="margin-left: 10px;"> LOLPedia</div>
     </div>
-    <div class="navbar-content">
+    <!-- <div class="navbar-content">
         <div class="notification">
             <i class="fa-solid fa-bell"></i>
             <span class="notification-number">5</span>
@@ -57,9 +58,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </nav>
 <!-- FIM NAVBAR -->
+
+<!-- INICIO CONTEUDO -->
 <div class="content">
     <!-- INICIO SIDEBAR -->
     <div class="sidebar">
@@ -67,7 +70,7 @@
             <i class="fa-solid fa-house icon"></i>
             <span>Campeões</span>
         </a>
-        <a href="invocador.html" class="sidebar-nav">
+        <a href="manutencao.html" class="sidebar-nav">
             <i class="fa-solid fa-users icon"></i>
             <span>invocadores</span>
         </a>
@@ -93,53 +96,6 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div id="bodyModalChampion" class="modal-body" style="display: flex; gap: 20px;">
-                            <!-- <div id="carouselExampleDark" class="carousel carousel-dark slide">
-                                <div class="carousel-indicators">
-                                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                                </div>
-                                <div class="carousel-inner">
-                                  <div class="carousel-item active" data-bs-interval="10000">
-                                    <img src="..." class="d-block w-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                      <h5>First slide label</h5>
-                                      <p>Some representative placeholder content for the first slide.</p>
-                                    </div>
-                                  </div>
-                                  <div class="carousel-item" data-bs-interval="2000">
-                                    <img src="..." class="d-block w-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                      <h5>Second slide label</h5>
-                                      <p>Some representative placeholder content for the second slide.</p>
-                                    </div>
-                                  </div>
-                                  <div class="carousel-item" data-bs-interval="3000">
-                                    <img src="..." class="d-block w-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                      <h5>Second slide label</h5>
-                                      <p>Some representative placeholder content for the second slide.</p>
-                                    </div>
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="..." class="d-block w-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                      <h5>Third slide label</h5>
-                                      <p>Some representative placeholder content for the third slide.</p>
-                                    </div>
-                                  </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Next</span>
-                                </button>
-                              </div> -->
-                        
                               <img id="imgModalChampion" src="" alt="imgChampion" width="500px" height="500px">
                               <div>
                                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -161,16 +117,34 @@
                                         </div>
                                         <div class="tab-pane fade" id="pills-skins" role="tabpanel" aria-labelledby="pills-skins-tab" tabindex="0">
                                             <h2>Skins</h2>
-                                            <div>
-                                                <div id="divSkinsModalChampion" class="divSkinsModalChampion" style="display: none;">
-                                                    
-                                            </div>
-                                                
+                                            <div id="divSkinsModalChampion" class="divSkinsModalChampion">
+                                                <section>
+                                                    <div class="swiper-container">
+                                                        <div id="swiper-wrapper" class="swiper-wrapper">
+                                                            <!-- Slides -->
+                                                            <!-- <div id="swiper-slide" class="swiper-slide">
+                                                                <div class="testimonialBox">
+                                                                    <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg" alt="">
+                                                                    <div id="content" class="content">
+                                                                        <div>Aatrox Clássico</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </section>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="pills-habilidade" role="tabpanel" aria-labelledby="pills-habilidade-tab" tabindex="0">
-                                            <h2>Habilidades</h2>
-                                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error necessitatibus quasi omnis possimus aut corporis odit? Saepe porro, numquam natus error molestias ipsa facere voluptatibus sequi veniam, maiores quibusdam illo.</div>
+                                            <div><h2>Habilidades</h2></div>
+                                            <!-- <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error necessitatibus quasi omnis possimus aut corporis odit? Saepe porro, numquam natus error molestias ipsa facere voluptatibus sequi veniam, maiores quibusdam illo.</div> -->
+                                            <div id="divSkills" class="divSkills"></div>
+                                                
+                                            <div id="textSkills" class="textSkill"> 
+                                                <div id="nameSpell"></div>
+                                                <div id="textSpell"></div>
+                                            </div>
                                         </div>
                                     </div>
                               </div>
@@ -188,9 +162,34 @@
 </div>
 <!-- FIM CONTEUDO -->
 
+    <!-- INICIO FOOTER  -->
+    <footer>
+        <span>Ceated BY <a href="https://github.com/Thiago2123">Thiago Meneghetti</a></span>
+        <!-- <div class="logo">
+            <a href="#top"><i class="devicon-codeigniter-plain"></i>Thiago Meneghetti</a>
+        </div> -->
+        <div class="footer-nav">
+            <div><a href="#top"><img src="imgs/logo.png" alt="logo" width="100px"></a></div>
+            
+        </div>
+        <div class="avatar-icons">
+            <a href="https://github.com/Thiago2123" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/thiago-meneghetti-3513b0168/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:thi_meneghetti@hotmail.com"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://wa.me/5511988670121" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+        <span id="diretosreservados">©<a href="#top">Thiago</a> Todos os direitos reservados.</span>
+    </footer>
+    <!-- FIM FOOTER  -->
 
 
-    <script src="custom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <script type="module" src="js/swiper-setup.js"></script>
+    <script src="js/custom.js"></script>
+
+
 
 </body>
 </html>
@@ -203,6 +202,11 @@
     .modal-dark .modal-content {
       background-color: #333;
       color: #fff;
+    }
+    
+
+    .modal-xl{
+        --bs-modal-width: 1600px;
     }
 
     .loreModalChampion{
@@ -218,22 +222,114 @@
         padding-left: 10px;
 
     }
-
-    .divSkinsModalChampion{
-        position: absolute;
-        display: flex;
-        gap: 50px;
+    .row{
+        --bs-gutter-x: 0rem;
+        --bs-gutter-y: 0px;
     }
 
-    .divSkinsModalChampion img{
-        width: 300px;
-        height: 300px;
+    #imgModalChampion{
+        /* height: auto; */
+        height: 695px;
+        width: 61.3%;
+        /* object-fit: cover; */
+        border-radius: 20px;
     }
-    
-
 
     /* INICIO SLIDER */
+
+    section{
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        /* align-items: center; */
+        /* background: #2196f3; */
+        overflow: hidden;
+        height: 609px;
+
+    }
+
+    .swiper-container{
+        width: 585px;
+        height: 130%;    
+    }
+
     
+    .swiper-container .swiper-slide{
+        background-position: center;
+        background-size: cover;
+        width: 138px;
+        /* padding-left: 150px; */
+        /* box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); */
+        filter: blur(4px);
+        border-radius: 20px;
+
+    }
+   .swiper-slide-active{
+        filter: blur(0px) !important;
+    }
+
+
+    .testimonialBox{
+        position: relative;
+        width: 308px;
+        color: white;
+    /* background-color: red;*/
+
+    }
+
+    .testimonialBox img{
+        border-radius: 20px;
+        width: 308px;
+        height: 560px;
+    }
+
+    .testimonialBox .content{
+        font-size: 20px;
+        font-weight: 800;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .swiper-3d {
+        perspective: 800px;
+    }
+
+    .swiper-3d .swiper-slide-shadow-right,
+    .swiper-3d .swiper-slide-shadow-left{
+        background-image: none;
+    }
+
     /* FIM SLIDER */
     
+
+    .divSkills{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .divSkills .divSpell{
+        border: 2px solid #ffc10752;
+        box-shadow: 5px 5px 50px black;
+        opacity: 0.4;
+        transition: 0.4s all ease;
+        position: relative;
+    }
+
+    .divSkills .divSpell:hover{
+        opacity: 1;
+        transform: scale(1.15);
+        cursor: pointer;
+    }
+
+    .divSpell span{
+        position: absolute;
+        margin-left: 50px;
+        font-weight: 700;
+    }
+
 </style>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide">
+                <div class="testimonialBox">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg" alt="">
+                    <div class="content">
+                        <p>Aatrox Clássico</p>
+                    </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testimonialBox">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_2.jpg" alt="">
+                    <div class="content">
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga tenetur perferendis 
+                            quisquam non, quis quibusdam, enim perspiciatis reiciendis optio, velit minima dolorum neque veniam inventore hic deserunt nisi omnis eligendi?
+                        </p>
+                    </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testimonialBox">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_7.jpg" alt="">
+                    <div class="content">
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga tenetur perferendis 
+                            quisquam non, quis quibusdam, enim perspiciatis reiciendis optio, velit minima dolorum neque veniam inventore hic deserunt nisi omnis eligendi?
+                        </p>
+                    </div>
+                </div>
+              </div>
+            </div>
+    </section>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <script src="custom.js"></script>
+    
+
+    <script  type="module">
+        import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+
+        const  swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
+                slideShadows: true,
+                scale: 1,
+            },
+            loop: false,
+        });
+    </script>
+</body>
+</html>
+
+
+<style>
+    
+    *{
+        margin: 0;
+        padding: 0%;
+       box-sizing: border-box;
+    }
+
+   
+    section{
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #2196f3;
+        overflow: hidden;
+    }
+
+    .swiper-container{
+        width: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .swiper-container .swiper-slide{
+        background-position: center;
+        background-size: cover;
+        width: 308px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        filter: blur(4px);
+        border-radius: 20px;
+    }
+   .swiper-slide-active{
+        filter: blur(0px) !important;
+    }
+
+
+    .testimonialBox{
+        position: relative;
+        width: 100%;
+        color: white;
+
+    }
+
+    .testimonialBox img{
+        border-radius: 20px;
+    }
+
+    .testimonialBox .content{
+        font-size: 30px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+
+</style>
