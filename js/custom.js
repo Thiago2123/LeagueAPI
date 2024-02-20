@@ -158,6 +158,9 @@ function abrirModalChampion(champion){
     let loreTab = document.getElementById('pills-lore-tab');
     loreTab.click();
 
+    $("#nameSpell").text("");
+    $("#textSpell").text("");
+
     fetch('https://ddragon.leagueoflegends.com/cdn/'+versaoAPI+'/data/pt_BR/champion/'+champion+'.json')
         .then(response => response.json())
         .then(data => {
@@ -224,8 +227,8 @@ function abrirModalChampion(champion){
                     const nameSpell = championDetails.passive.name;
                     const textSpell = championDetails.passive.description;
 
-                    $("#nameSpell").text(nameSpell);
-                    $("#textSpell").text(textSpell);
+                    $("#nameSpell").html(nameSpell);
+                    $("#textSpell").html(textSpell);
 
                 });
                 
@@ -253,8 +256,8 @@ function abrirModalChampion(champion){
                     const nameSpell = spell.name;
                     const textSpell = spell.description;
 
-                    $("#nameSpell").text(nameSpell);
-                    $("#textSpell").text(textSpell);
+                    $("#nameSpell").html(nameSpell);
+                    $("#textSpell").html(textSpell);
                     // console.log('spell',textSpell);
                 });
             });
