@@ -7,18 +7,87 @@
 
     
 // SIDEBAR
-let sidebar = document.querySelector(".sidebar");
-let bars = document.querySelector(".bars");
 
-bars.addEventListener("click", function() {
-    sidebar.classList.contains("active") ? sidebar.classList.remove("active") :
-    sidebar.classList.add("active");
-});
+$(document).ready(function() {
+    let sidebar = document.querySelector(".sidebar");
+    let bars = document.querySelector(".bars");
+    
+    bars.addEventListener("click", function() {
+        sidebar.classList.contains("active") ? sidebar.classList.remove("active") :
+        sidebar.classList.add("active");
+    });
+    
+    
+    verificaUltimaVersao().then(() => {
+        buscarCampeoes(versaoAPI);
+        campeoesFree = buscarFreeCampeoes(); 
+       
+    });
+    
+    $('#mostrarCampeaoFree').on("click", function(){
+        var icon = $(this).find('i');
+        icon.toggleClass('far fa-square far fa-square-check');
+    
+        // console.log('campeoesFree:', campeoesFree);
+    
+        campeoesFree = campeoesFree.map(function(item) {
+            return item.toString(); // Convertendo cada item para string
+        });
+    
+        $('.box-img').find('img').each(function() {
+            if (icon.hasClass('fa-square')) {
+                $(this).css('display', ''); // Resetar o estilo se estiver no array
+            } else {
+                var idInterno = $(this).attr('idInterno').toString(); // Convertendo para string
+                if (!campeoesFree.includes(idInterno)) {
+                    $(this).css('display', 'none');
+                }
+            }
+        });
+    });
 
+
+
+    $('#iconDarkMode').on("click", function() {  
+        var icon = $(this);
+        if (icon.hasClass('fa-sun')) {
+            icon.removeClass('fa-sun').addClass('fa-moon');
+            icon.css('color', '#bd009d');
+            
+        } else {
+            icon.removeClass('fa-moon').addClass('fa-sun');
+            icon.css('color', '#ffb100');
+
+        }
+
+        // Verifica se o corpo do documento possui a classe 'dark-mode'
+        if ($('body').hasClass('dark-mode')) {
+            // Se o corpo do documento já tiver a classe 'dark-mode', remove-a e restaura as variáveis CSS padrão
+            $('body').removeClass('dark-mode');
+            document.documentElement.style.setProperty('--fourth-color', '#FFF');
+            document.documentElement.style.setProperty('--bg-color', '#ecedf0');
+            
+
+        } else {
+            // Caso contrário, adiciona a classe 'dark-mode' e ajusta as variáveis CSS para o modo escuro
+            $('body').addClass('dark-mode');
+            document.documentElement.style.setProperty('--fourth-color', '#333');
+            document.documentElement.style.setProperty('--bg-color', '#2b2b2bfc');
+            document.documentElement.style.setProperty('color', '#fff');
+        }
+    });
+
+    
+    const diretosreservados = document.querySelector("#diretosreservados");
+    var dataAtual = new Date();
+    var ano = dataAtual.getFullYear();
+
+    diretosreservados.firstChild.nodeValue = '© '+ano+" ";
+});    
 
 const requestApi = {
     baseApi:"https://br1.api.riotgames.com",
-    apiKey: "RGAPI-386bb88e-9b98-41fc-97eb-c45f65eaca7c",
+    apiKey: "RGAPI-b33bec25-bf18-4b6e-bc15-47142874c034",
     // nome: "nhamih"
 };
 
@@ -42,7 +111,7 @@ function fazGet(url){
         if (request.status = 200) {
             return request.responseText;
         }else{
-            return {erro: '403', msg: 'Nome não encontrado'};
+            return {erro: '403', msg: 'Erro ao fazer o GET'};
         }
         
         
@@ -111,6 +180,7 @@ function verificaUltimaVersao(){
         .then(response => response.json())
         .then(data => {
             versaoAPI = data[0];
+            $('#versaoLol').text(versaoAPI);
             // console.log("versaoAPI ",data);
         });
 }
@@ -128,12 +198,13 @@ function buscarCampeoes(versaoAPI){
             dadoImg.setAttribute("data-bs-toggle","modal");
             dadoImg.setAttribute('data-bs-target',"#modalChampion");
             dadoImg.setAttribute('id', key);
+            dadoImg.setAttribute('idInterno', ""+champions.data[key].key+"");
             dadoImg.setAttribute('onclick', 'abrirModalChampion("'+key+'")');
 
             dadoImg.src = "https://ddragon.leagueoflegends.com/cdn/"+versaoAPI+"/img/champion/"+key+".png";
             box_img.appendChild(dadoImg);
         }
-        // console.log(champions);
+        console.log('champions', champions.data);
         
     }).catch(error => {
     console.error('Ocorreu um erro ao obter o JSON de campeoes:', error);
@@ -158,18 +229,60 @@ function abrirModalChampion(champion){
     let loreTab = document.getElementById('pills-lore-tab');
     loreTab.click();
 
-    $("#nameSpell").text("");
-    $("#textSpell").text("");
+    $("#nameSpell").html("");
+    $("#textSpell").html("");
+    $('#divModalTag').html("");
 
     fetch('https://ddragon.leagueoflegends.com/cdn/'+versaoAPI+'/data/pt_BR/champion/'+champion+'.json')
         .then(response => response.json())
         .then(data => {
+            // console.log('data ', data)
             championDetails = data.data[champion];
             tituloModalChampion.innerHTML = championDetails.name;
             imgModalChampion.src = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/"+champion+"_0.jpg";
             loreModalChampion.innerHTML = championDetails.lore;
             subTitleModalChampion.innerHTML = championDetails.name + " " + championDetails.title;
 
+
+
+            const coresTags = {
+                'Tank': {
+                    'cor': 'success',
+                    'traducao': 'Tanque'
+                },
+                'Fighter': {
+                    'cor': 'primary',
+                    'traducao': 'Lutador'
+                },
+                'Marksman': {
+                    'cor': 'warning',
+                    'traducao': 'Atirador'
+                },
+                'Mage': {
+                    'cor': 'purple',
+                    'traducao': 'Mago'
+                },
+                'Assassin': {
+                    'cor': 'danger',
+                    'traducao': 'Assassino'
+                },
+                'Support': {
+                    'cor': 'info',
+                    'traducao': 'Suporte'
+                }
+            };
+
+            championDetails.tags.forEach((tag, index) => {
+                
+                
+                const tagInfo = coresTags[tag];
+                const cor = tagInfo ? tagInfo.cor : 'primary'; // Se a tag não estiver no objeto coresTags, atribui a cor primária
+                const traducao = tagInfo ? tagInfo.traducao : tag; // Se a tag não estiver no objeto coresTags, atribui uma string a tag sem tradução
+                const tagHtml = $('<span class="badge rounded-pill text-bg-' + cor + '">' + traducao + '</span>');
+            
+                $('#divModalTag').append(tagHtml);
+
+            });
 
             // INICIO ISKINS
             championDetails.skins.forEach((skin, index) => {
@@ -200,6 +313,7 @@ function abrirModalChampion(champion){
                 // Adicionar swiper-slide ao swiper-wrapper
                 $('#swiper-wrapper').append(divSwiperSlide);
             });
+
              // Adicione um ouvinte de evento para o evento slideChange
             swiper.on('slideChange', function () {
                 // Recupera o índice do slide ativo
@@ -214,27 +328,38 @@ function abrirModalChampion(champion){
 
             // FIM ISKINS
 
-                const divSpell = $('<div class="divSpell"></div');
-                $('#divSkills').append(divSpell);
+            // INICIO HABILIDADES
+            // Quando clica no divSpell dentro do divSkills adiciona a classe active
+            $('#divSkills').on("click", ".divSpell", function(){
+                const divSpell = $(this); // Captura a divSpell clicada
+                // Encontra o elemento ativo e remove a classe active
+                $('#divSkills').find('.divSpell.active').removeClass('active');
+                // Adiciona a classe active ao elemento clicado
+                divSpell.addClass('active');
+            });
+        
 
-                const imgPassive = $('<img>', {
-                    src: "https://ddragon.leagueoflegends.com/cdn/14.3.1/img/passive/"+championDetails.passive.image.full,
-                    alt: "passive"
-                });
+            const divSpell = $('<div id="divSpell" class="divSpell"></div');
+            $('#divSkills').append(divSpell);
 
-                divSpell.append(imgPassive);
-                divSpell.on("click", function(){
-                    const nameSpell = championDetails.passive.name;
-                    const textSpell = championDetails.passive.description;
+            const imgPassive = $('<img>', {
+                src: "https://ddragon.leagueoflegends.com/cdn/14.3.1/img/passive/"+championDetails.passive.image.full,
+                alt: "passive"
+            });
 
-                    $("#nameSpell").html(nameSpell);
-                    $("#textSpell").html(textSpell);
+            divSpell.append(imgPassive);
 
-                });
-                
+            divSpell.on("click", function(){
+                const nameSpell = championDetails.passive.name;
+                const textSpell = championDetails.passive.description;
+                $("#nameSpell").html(nameSpell);
+                $("#textSpell").html(textSpell);
+
+            });
+            
 
 
-            championDetails.spells.forEach((spell, index) => {
+                championDetails.spells.forEach((spell, index) => {
                 const divSpell = $('<div class="divSpell"></div');
                 $('#divSkills').append(divSpell);
 
@@ -262,17 +387,22 @@ function abrirModalChampion(champion){
                 });
             });
 
+            // FIM HABILIDADES
 
-            console.log(championDetails);          
+            console.log("championDetails",championDetails);          
 
 
-    }).catch(error => {
+        }).catch(error => {
             console.error('Ocorreu um erro ao obter o JSON de campeoes:', error);
-    });
+        });
 
 }
 
 
-verificaUltimaVersao().then(() => {
-    buscarCampeoes(versaoAPI);
-  })
+
+function buscarFreeCampeoes(){
+    data = fazGet(requestApi.baseApi+'/lol/platform/v3/champion-rotations?api_key='+requestApi.apiKey+'');
+    const retornoApi = JSON.parse(data);
+    return retornoApi.freeChampionIds;
+
+}

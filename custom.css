@@ -25,6 +25,8 @@
     --info-color: #5bc0de;
     --warning-color: #ed9c28;
     --danger-color: #d2322d;
+
+    --purple-color: #6610f2;
 }
 
 body{
@@ -52,6 +54,13 @@ body{
     align-items: center;
 
 }
+
+.navbar .navbar-content .dark-mode i{
+    font-size: 30px;
+    cursor: pointer;
+    color: #bd009d;
+}
+
 
 .navbar .bars,
 .notification{
@@ -336,3 +345,30 @@ footer span a:hover{
 }
 
 /* FIM RODAPE */
+
+
+
+
+.text-bg-purple{
+    background-color: var(--purple-color) !important;
+}
+
+
+
+
+
+
+::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: var(--four-bg-color);
+    border-radius: 7px;
+}
+::-webkit-scrollbar{
+    width: 7px;
+    background-color: var(--four-bg-color);
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: var(--main-bg-color);
+    border-radius: 7px;
+}
