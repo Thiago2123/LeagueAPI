@@ -48,20 +48,21 @@
 
 
         <div class="wrapper">
-
-            <div class="row">
-
-                <div>
-                    <button class="btn btn-warning" onclick="pegarIdSummoner()">Procurar id</button>
-                    <button class="btn btn-primary" onclick="procurarInvocador()">Procurar</button>
-                    <br><br>
-                
+            <div class="row justify-content-start">
+                <div class="col-3 input-group mt-2 mb-4" style="width: 25%;">
+                    <input type="text" class="form-control" placeholder="Nome do invocador" id="input_nome">
+                    <span class="input-group-text">#</span>
+                    <input type="text" class="form-control" placeholder="BR1" id="input_tag">
                 </div>
+                <div class="col-3 mt-2">
+                    <button class="btn btn-warning" onclick="pegarIdSummoner()">Procurar id</button>
+                    <button class="btn btn-primary" onclick="buscarDadosInvocador()">Procurar</button>
+                </div>
+                
+                
+                <!-- 
                 <div>
-                    <input type="text" id="input_nome" placeholder="Nome">
-                    <input type="text" id="input_tag" placeholder="tag">
                     <button onclick="pegarPartidaOnline()">Procurar partida</button>
-                    <div id="msg"></div>
             
                     <table id="tabela" style="width:100%; text-align: center; text-wrap: nowrap;">
                         <tr id="tabela_titulo">
@@ -71,11 +72,17 @@
                         
                         </tr>
                     </table>
-                </div>
+                </div> -->
             </div>
             <div class="row">
-                <div>
-                    <img src="https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/5953.png" alt="img" width="130" height="130">
+                <div id="msg"></div>
+            </div>
+            <div id="rowInvocador" class="row d-none">
+                <div style="position: relative;">
+                    <div style="position: absolute; color: aliceblue;background-color: rgb(32, 45, 55); border-radius: 20px; height: 20px; margin: 120px 0 0 40px;">
+                        <span style="display: inline-block; line-height: 20px; padding: 0px 8px; font-size: 12px; border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(32, 45, 55); font-family: Roboto, sans-serif;" id="invocadorLvl"></span>
+                    </div>
+                    <img id="imgInvocador" src="" alt="img" width="130" height="130" style="border-radius: 20px;">
                 </div>
             </div>
         </div>

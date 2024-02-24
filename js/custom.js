@@ -296,21 +296,19 @@ function pesquisarCampeao(){
 }
 
 function pesquisarCampeaoPorFuncao(funcao){
+    $('#mostrarCampeaoFree i').removeClass('fa-square-check');
+    $('#mostrarCampeaoFree i').addClass('fa-square');
+    $("#inputPesquisarCampeao").prop("disabled", false);
+    $("#inputPesquisarCampeao").val("");
+    
     $('.box-img img').hide();
-
     if (!funcao) {
         $('.box-img img').show();
-        $('#mostrarCampeaoFree i').removeClass('fa-square-check');
-        $('#mostrarCampeaoFree i').addClass('fa-square');
-        $("#inputPesquisarCampeao").prop("disabled", false);
         return;
     }
     const campeoesDetails = Object.values(champions.data);
     campeoesDetails.forEach(campeao => {
         if (campeao.tags.includes(funcao)) {
-            $('#mostrarCampeaoFree i').removeClass('fa-square-check');
-            $('#mostrarCampeaoFree i').addClass('fa-square');
-            $("#inputPesquisarCampeao").prop("disabled", false);
             $('#' + campeao.id).show();
         }
     });

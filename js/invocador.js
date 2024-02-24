@@ -17,18 +17,30 @@ function procurarInvocador(){
 
     var data = fazGet('https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/'+nomeInvocador+'/'+tagInvocador+'?api_key='+requestApi.apiKey+'');
     // data = fazGet('https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/thiago2123/br1?api_key=RGAPI-b33bec25-bf18-4b6e-bc15-47142874c034');
-    console.log('data',data);
+    // console.log('data',data.puuid);
     
     if(data.status_code === 404){
         data.message = 'Dados não encontrados para o invocador com o riot Id '+nomeInvocador+' #'+tagInvocador;
         // $("#msg").html(data.message);
-        mostrarMsg('msg', data.message)
+        mostrarMsg('msg', data.message, 4)
         return false;
     }
 
+    return data.puuid
 
 } 
 
+
+function buscarDadosInvocador(){
+    const puuid = procurarInvocador();
+    var data = fazGet(requestApi.baseApi+'/lol/summoner/v4/summoners/by-puuid/'+puuid+'?api_key='+requestApi.apiKey+'');
+    console.log(data);
+
+    $("#imgInvocador").attr('src', 'https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/'+data.profileIconId+'.png');
+
+    $("#invocadorLvl").html(data.summonerLevel);
+    $("#rowInvocador").removeClass('d-none');
+}
 
 
 
@@ -91,13 +103,16 @@ function pegarPartidaOnline(){
 }
 
 
-function mostrarMsg(idCampo, msg, cor = 'danger', tempoSec = 4000 ){
+function mostrarMsg(idCampo, msg, tempoSec = 3, cor = 'danger'){
     if (typeof msg !== 'string') {
         throw new Error('O parâmetro msg deve ser uma string.');
     }
 
-    let alert = ` <div class="alert alert-${cor}" role="alert">${msg}</div>`
+    let alert = ` <div class="mt-2 alert alert-${cor}" role="alert">${msg}</div>`
 
+    
     $('#'+idCampo).append(alert);
-
+    setTimeout(() => {
+        $('#'+idCampo).html("");
+    }, tempoSec * 1000);
 }
