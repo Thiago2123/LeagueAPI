@@ -8,69 +8,14 @@
     
 
 $(document).ready(function() {
-     
+    var campeoesFree = null;
     verificaUltimaVersao().then(() => {
         buscarCampeoes(versaoAPI);
-        campeoesFree = buscarFreeCampeoes(); 
+        buscarFreeCampeoes(); 
+        pesquisarCampeao();
        
     });
-    
-    $('#mostrarCampeaoFree').on("click", function(){
-        var icon = $(this).find('i');
-        icon.toggleClass('far fa-square far fa-square-check');
-    
-        // console.log('campeoesFree:', campeoesFree);
-    
-        campeoesFree = campeoesFree.map(function(item) {
-            return item.toString(); // Convertendo cada item para string
-        });
-    
-        $('.box-img').find('img').each(function() {
-            if (icon.hasClass('fa-square')) {
-                $(this).css('display', ''); // Resetar o estilo se estiver no array
-            } else {
-                var idInterno = $(this).attr('idInterno').toString(); // Convertendo para string
-                if (!campeoesFree.includes(idInterno)) {
-                    $(this).css('display', 'none');
-                }
-            }
-        });
-    });
 
-    //     var icon = $(this);
-    //     if (icon.hasClass('fa-sun')) {
-    //         icon.removeClass('fa-sun').addClass('fa-moon');
-    //         icon.css('color', '#bd009d');
-            
-    //     } else {
-    //         icon.removeClass('fa-moon').addClass('fa-sun');
-    //         icon.css('color', '#ffb100');
-
-    //     }
-
-    //     // Verifica se o corpo do documento possui a classe 'dark-mode'
-    //     if ($('body').hasClass('dark-mode')) {
-    //         // Se o corpo do documento já tiver a classe 'dark-mode', remove-a e restaura as variáveis CSS padrão
-    //         $('body').removeClass('dark-mode');
-    //         document.documentElement.style.setProperty('--fourth-color', '#FFF');
-    //         document.documentElement.style.setProperty('--bg-color', '#ecedf0');
-            
-
-    //     } else {
-    //         // Caso contrário, adiciona a classe 'dark-mode' e ajusta as variáveis CSS para o modo escuro
-    //         $('body').addClass('dark-mode');
-    //         document.documentElement.style.setProperty('--fourth-color', '#333');
-    //         document.documentElement.style.setProperty('--bg-color', '#2b2b2bfc');
-    //         document.documentElement.style.setProperty('color', '#fff');
-    //     }
-    // });
-
-    
-    // const diretosreservados = document.querySelector("#diretosreservados");
-    // var dataAtual = new Date();
-    // var ano = dataAtual.getFullYear();
-
-    // diretosreservados.firstChild.nodeValue = '© '+ano+" ";
 });    
 
 const requestApi = {
@@ -97,7 +42,7 @@ function buscarCampeoes(versaoAPI){
     fetch('https://ddragon.leagueoflegends.com/cdn/'+versaoAPI+'/data/pt_BR/champion.json')
     .then(response => response.json()) // Transforma a resposta em JSON
     .then(data => {
-        const champions = data;
+        champions = data;
 
         for(const key in champions.data){
             let dadoImg = document.createElement('img');
@@ -110,7 +55,7 @@ function buscarCampeoes(versaoAPI){
             dadoImg.src = "https://ddragon.leagueoflegends.com/cdn/"+versaoAPI+"/img/champion/"+key+".png";
             box_img.appendChild(dadoImg);
         }
-        console.log('champions', champions.data);
+        // console.log('champions', champions.data);
         
     }).catch(error => {
     console.error('Ocorreu um erro ao obter o JSON de campeoes:', error);
@@ -308,7 +253,65 @@ function abrirModalChampion(champion){
 
 function buscarFreeCampeoes(){
     data = fazGet(requestApi.baseApi+'/lol/platform/v3/champion-rotations?api_key='+requestApi.apiKey+'');
-    const retornoApi = JSON.parse(data);
-    return retornoApi.freeChampionIds;
+    console.log("free", data);
+    // const retornoApi = JSON.parse(data);
+    // return data;
+    let campeoesFree = data;
 
+    $('#mostrarCampeaoFree').on("click", function(){
+        iconFreeChampion = $(this).find('i');
+        iconFreeChampion.toggleClass('far fa-square far fa-square-check');
+        pesquisarCampeao();
+        $('.box-img').find('img').each(function() { 
+            if (iconFreeChampion.hasClass('fa-square')) {
+                $(this).css('display', ''); // Resetar o estilo se estiver no array
+                $("#inputPesquisarCampeao").prop("disabled", false);
+            } else {
+                var idInterno = $(this).attr('idInterno');
+                // console.log(idInterno);
+                if (!campeoesFree.freeChampionIds[idInterno]) {
+                    $("#inputPesquisarCampeao").prop("disabled", true);
+                    $("#inputPesquisarCampeao").val("");
+                    $(this).css('display', 'none');
+                }
+            }
+        });
+    });  
+
+}
+
+
+function pesquisarCampeao(){
+    $("#inputPesquisarCampeao").on("keyup", function() {
+        var nomeDigitado = $(this).val().toLowerCase(); // pegando o valor e transformando em minusculo
+        $('.box-img img').each(function() {  // rodando o box-img para pegar todas imgs
+            var idImagem = $(this).attr('id').toLowerCase(); // pegando o id da img que contem o nome do campeao
+            if(idImagem.includes(nomeDigitado)) { // verificando se o id da img é contem o valor digitado
+                $(this).show(); // mostrando o campeao
+            } else {
+                $(this).hide(); // desaparecendo os outros
+            }
+        });
+    });
+}
+
+function pesquisarCampeaoPorFuncao(funcao){
+    $('.box-img img').hide();
+
+    if (!funcao) {
+        $('.box-img img').show();
+        $('#mostrarCampeaoFree i').removeClass('fa-square-check');
+        $('#mostrarCampeaoFree i').addClass('fa-square');
+        $("#inputPesquisarCampeao").prop("disabled", false);
+        return;
+    }
+    const campeoesDetails = Object.values(champions.data);
+    campeoesDetails.forEach(campeao => {
+        if (campeao.tags.includes(funcao)) {
+            $('#mostrarCampeaoFree i').removeClass('fa-square-check');
+            $('#mostrarCampeaoFree i').addClass('fa-square');
+            $("#inputPesquisarCampeao").prop("disabled", false);
+            $('#' + campeao.id).show();
+        }
+    });
 }

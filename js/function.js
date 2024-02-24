@@ -62,16 +62,20 @@ function fazGet(url){
         request.send();
 
 
-        if (request.status = 200) {
-            return request.responseText;
+        var response = JSON.parse(request.response)
+        // console.log('request',response.status);
+        // console.log('request',response.status.status_code);
+
+        if(request.status == 200){
+            return response;
+            
         }else{
-            return {erro: '403', msg: 'Erro ao fazer o GET'};
-        }
-        
+            return response.status;
+        }     
         
     } catch (error) {
         console.error("Erro na requisição: " + error);
-        return null;
+        return error;
     }
    
     

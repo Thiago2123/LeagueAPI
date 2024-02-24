@@ -27,6 +27,7 @@
     --danger-color: #d2322d;
 
     --purple-color: #6610f2;
+    --orange-color: #d96411;
 }
 
 body{
@@ -349,8 +350,23 @@ footer span a:hover{
 
 
 
-.text-bg-purple{
+.text-bg-purple, .btn-purple{
     background-color: var(--purple-color) !important;
+    color: white !important;
+}
+
+.btn-purple:hover{
+    background-color: #8038f5f5 !important;
+}
+
+.btn-orange{
+    background-color: var(--orange-color) !important;
+    color: white;
+}
+
+.btn-orange:hover{
+    background-color: #d9641194 !important;
+    color: white;
 }
 
 
