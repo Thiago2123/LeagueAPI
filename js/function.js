@@ -26,14 +26,15 @@ $(document).ready(function() {
             $('body').removeClass('dark-mode');
             document.documentElement.style.setProperty('--fourth-color', '#FFF');
             document.documentElement.style.setProperty('--bg-color', '#ecedf0');
-            
+            document.documentElement.style.setProperty('--text-color', '#212529');
+
 
         } else {
             // Caso contrário, adiciona a classe 'dark-mode' e ajusta as variáveis CSS para o modo escuro
             $('body').addClass('dark-mode');
             document.documentElement.style.setProperty('--fourth-color', '#333');
             document.documentElement.style.setProperty('--bg-color', '#2b2b2bfc');
-            document.documentElement.style.setProperty('color', '#fff');
+            document.documentElement.style.setProperty('--text-color', '#fff');
         }
     });
 

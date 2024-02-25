@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
     <link rel="stylesheet" href="custom.css">
+    <link rel="stylesheet" href="invocador.css">
     <title>TM League - Invocador</title>
 </head>
 <body class="">
@@ -77,13 +78,14 @@
             <div class="row">
                 <div id="msg"></div>
             </div>
-            <div id="rowInvocador" class="row d-none">
-                <div style="position: relative;">
-                    <div style="position: absolute; color: aliceblue;background-color: rgb(32, 45, 55); border-radius: 20px; height: 20px; margin: 120px 0 0 40px;">
-                        <span style="display: inline-block; line-height: 20px; padding: 0px 8px; font-size: 12px; border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(32, 45, 55); font-family: Roboto, sans-serif;" id="invocadorLvl"></span>
+            <div id="rowInvocador" class="row d-none rowInvocador">
+                <div class="col-1 div_img_invocador">
+                    <div class="div_lvl_invocador">
+                        <span class="spanInvocadorLvl" id="spanInvocadorLvl"></span>
                     </div>
-                    <img id="imgInvocador" src="" alt="img" width="130" height="130" style="border-radius: 20px;">
+                    <img id="imgInvocador" src="" alt="img" >
                 </div>
+                <div class="col-11 nomeInvocador" id="nomeInvocador"></div>
             </div>
         </div>
         

@@ -26,20 +26,26 @@ function procurarInvocador(){
         return false;
     }
 
-    return data.puuid
+    return {'puuid': data.puuid, 'tag': data.tagLine};
 
 } 
 
 
 function buscarDadosInvocador(){
-    const puuid = procurarInvocador();
-    var data = fazGet(requestApi.baseApi+'/lol/summoner/v4/summoners/by-puuid/'+puuid+'?api_key='+requestApi.apiKey+'');
-    console.log(data);
+    const nomeInvocador = procurarInvocador();
+    if(nomeInvocador){
+        var data = fazGet(requestApi.baseApi+'/lol/summoner/v4/summoners/by-puuid/'+nomeInvocador.puuid+'?api_key='+requestApi.apiKey+'');
+        console.log(data);
 
-    $("#imgInvocador").attr('src', 'https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/'+data.profileIconId+'.png');
+        $("#imgInvocador").attr('src', 'https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/'+data.profileIconId+'.png');
 
-    $("#invocadorLvl").html(data.summonerLevel);
-    $("#rowInvocador").removeClass('d-none');
+        $("#spanInvocadorLvl").html(data.summonerLevel);
+        $("#nomeInvocador").html(`<h3><strong>${data.name}</strong><span> #${nomeInvocador.tag} </span</h3>`);
+        
+        
+        
+        $("#rowInvocador").removeClass('d-none');
+    }
 }
 
 
