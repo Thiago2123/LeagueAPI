@@ -27,11 +27,83 @@
     width: 130px;
     height: auto;
 }
-.rowInvocador .nomeInvocador h3{
-    color: var(--text-color);
+.nomeInvocador h3,
+.divRankedSolo span,
+.divRankedFlex span,
+#textRankedSolo, #textRankedSoloPdl,
+#textRankedFlex, #textRankedFlexPdl{
+    color: var(--text-color) !important;
 }
 
-.rowInvocador .nomeInvocador span{
+.nomeInvocador span{
     color: var(--bs-gray-500);
     font-weight: normal;
+}
+
+
+
+.wrapper #rowInvocador{
+    background-color: var(--bg-color);
+}
+
+.divPai_img_invocador{
+    margin: 0 !important;
+}
+
+.rowPaiRankedSolo,
+.rowPaiRankedFlex{
+    padding: 0;
+}
+
+.rowPaiRankedSolo > .row,
+.rowPaiRankedFlex > .row{
+    margin: 0; 
+    padding: 0;
+}
+
+.rowPaiRankedSolo .divRankedSolo, 
+.rowPaiRankedFlex .divRankedFlex{
+    padding: 1rem 0 0 0; 
+    text-align: center;
+}
+
+.divRankedSolo span,
+.divRankedFlex span{
+    font-size: 20px; 
+    font-weight: 500;
+}
+
+.rowPaiRankedSolo #imgRankedSolo,
+.rowPaiRankedFlex #imgRankedFlex{
+    width: 140px; 
+    height: auto; 
+    border-radius: 50%; 
+    background-color: var(--bg-color);
+}
+
+
+.divTextRankedSolo #textRankedSoloWinLose, .divTextRankedSolo #textRankedSoloWinrate,
+.divTextRankedFlex #textRankedFlexWinLose, .divTextRankedFlex #textRankedFlexWinrate{
+    font-size: 12px; 
+    text-align: right; 
+    color: #9AA4AF;
+}
+
+
+#textRankedSolo, 
+#textRankedFlex{
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--gray900);
+    font-family: "Roboto",sans-serif;
+}
+
+.unranked{
+    font-size: 16px !important;
+    font-weight: bold !important;
+    color: #C3CBD1 !important;
+}
+
+.divTextRankedSolo, .divTextRankedFlex{
+    padding: 0;
 }

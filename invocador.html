@@ -51,18 +51,18 @@
         <div class="wrapper">
             <div class="row justify-content-start">
                 <div class="col-3 input-group mt-2 mb-4" style="width: 25%;">
-                    <input type="text" class="form-control" placeholder="Nome do invocador" id="input_nome">
+                    <input nomeCampo="Nome do invocador" type="text" class="form-control" placeholder="Nome do invocador" id="input_nome">
                     <span class="input-group-text">#</span>
-                    <input type="text" class="form-control" placeholder="BR1" id="input_tag">
+                    <input nomeCampo="Tag do invocador" type="text" class="form-control" placeholder="BR1" id="input_tag" maxlength="8">
                 </div>
                 <div class="col-3 mt-2">
                     <button class="btn btn-warning" onclick="pegarIdSummoner()">Procurar id</button>
-                    <button class="btn btn-primary" onclick="buscarDadosInvocador()">Procurar</button>
+                    <button class="btn btn-primary" onclick="buscarDadosRanked()">Procurar</button>
                 </div>
                 
                 
-                <!-- 
-                <div>
+                
+               <!--  <div>
                     <button onclick="pegarPartidaOnline()">Procurar partida</button>
             
                     <table id="tabela" style="width:100%; text-align: center; text-wrap: nowrap;">
@@ -74,18 +74,60 @@
                         </tr>
                     </table>
                 </div> -->
-            </div>
-            <div class="row">
                 <div id="msg"></div>
             </div>
-            <div id="rowInvocador" class="row d-none rowInvocador">
-                <div class="col-1 div_img_invocador">
-                    <div class="div_lvl_invocador">
-                        <span class="spanInvocadorLvl" id="spanInvocadorLvl"></span>
+            <div id="rowInvocador" class="row d-none"> 
+                <div class="row col-5">
+                    <div class="row justify-content-center divPai_img_invocador">
+                        <div class="col-5 div_img_invocador">
+                            <div class="div_lvl_invocador">
+                                <span class="spanInvocadorLvl" id="spanInvocadorLvl"></span>
+                            </div>
+                            <img id="imgInvocador" src="" alt="img" >
+                        </div>
+                        <div class="col-7 nomeInvocador" id="nomeInvocador"></div>
                     </div>
-                    <img id="imgInvocador" src="" alt="img" >
                 </div>
-                <div class="col-11 nomeInvocador" id="nomeInvocador"></div>
+                <div class="row col-3 rowPaiRankedSolo">
+                    <div class="row">
+                        <div class="col-12 divRankedSolo">
+                            <span>Ranqueada Solo</span>
+                            <hr style="color: var(--bg-color); border: 2px solid;">
+                        </div>
+                        <div class="col-5 mb-2">
+                            <img id="imgRankedSolo" src="imgs/emblemas/Rank=Bronze.png" alt="">
+                        </div>
+                        <div class="col-7 divTextRankedSolo">
+                            <div class="row">
+                                <span id="textRankedSolo" class="col-8" style="padding: 0;"></span>
+                                <span id="textRankedSoloWinLose" class="col-4" style="padding: 0;"></span>
+                                <span id="textRankedSoloPdl" class="col-6"></span>
+                                <span id="textRankedSoloWinrate" class="col-6"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row col-3 rowPaiRankedFlex">
+                    <div class="row">
+                        <div class="col-12 divRankedFlex">
+                            <span>Ranqueada Flexível</span>
+                            <hr style="color: var(--bg-color); border: 2px solid;">
+                        </div>
+                        <div class="col-5 mb-2">
+                            <img id="imgRankedFlex" src="imgs/emblemas/Rank=Bronze.png" alt="">
+                        </div>
+                        <div class="col-7 divTextRankedFlex">
+                            <div class="row">
+                                <span id="textRankedFlex" class="col-8" style="padding: 0;"></span>
+                                <span id="textRankedFlexWinLose" class="col-4" style="padding: 0;"></span>
+                                <span id="textRankedFlexPdl" class="col-6"></span>
+                                <span id="textRankedFlexWinrate" class="col-6"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
         

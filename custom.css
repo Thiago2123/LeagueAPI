@@ -267,7 +267,7 @@ body{
 .content .row{
     background-color: var(--fourth-color);
     border-radius: 6px;
-    /* margin: 10px; */
+    margin: 10px;
 }
 
 .wrapper .row{

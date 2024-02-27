@@ -14,6 +14,15 @@ const requestApi = {
 function procurarInvocador(){
     const nomeInvocador = $('#input_nome').val();
     const tagInvocador = $('#input_tag').val();
+    console.log('nomeInvocador', nomeInvocador);
+
+    // verificar se os campos estão em branco
+    if(nomeInvocador === '' || tagInvocador === ''){
+        var campoNome = $('#input_nome').attr('nomeCampo');
+        var campoTag = $('#input_tag').attr('nomeCampo');
+        mostrarMsg('msg', "O campo <b>"+(nomeInvocador === '' ? campoNome : campoTag)+"</b> está vazio", 4)
+        return false
+    }
 
     var data = fazGet('https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/'+nomeInvocador+'/'+tagInvocador+'?api_key='+requestApi.apiKey+'');
     // data = fazGet('https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/thiago2123/br1?api_key=RGAPI-b33bec25-bf18-4b6e-bc15-47142874c034');
@@ -35,22 +44,98 @@ function buscarDadosInvocador(){
     const nomeInvocador = procurarInvocador();
     if(nomeInvocador){
         var data = fazGet(requestApi.baseApi+'/lol/summoner/v4/summoners/by-puuid/'+nomeInvocador.puuid+'?api_key='+requestApi.apiKey+'');
-        console.log(data);
+        // console.log('buscarDadosInvocador', data);
 
         $("#imgInvocador").attr('src', 'https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/'+data.profileIconId+'.png');
-
         $("#spanInvocadorLvl").html(data.summonerLevel);
         $("#nomeInvocador").html(`<h3><strong>${data.name}</strong><span> #${nomeInvocador.tag} </span</h3>`);
         
-        
-        
+
         $("#rowInvocador").removeClass('d-none');
+        return data.id
     }
 }
 
+function buscarDadosRanked() {
+    const idSummoner = buscarDadosInvocador();
+    $("#textRankedSolo, #textRankedFlex, #textRankedFlexPdl, #textRankedSoloPdl").html("");
+    $("#imgRankedFlex, #imgRankedSolo").attr("src", "");
+    
+    var ranqueadas = fazGet(requestApi.baseApi+'/lol/league/v4/entries/by-summoner/'+idSummoner+'?api_key='+requestApi.apiKey+'');
+    console.log('ranqueadas', ranqueadas);
+    
+    if (ranqueadas.length == 0) {
+        $("#textRankedSolo, #textRankedFlex").html("Unranked").addClass('unranked');
 
+    } else {
+        $("#textRankedSolo, #textRankedFlex").removeClass('unranked');
+        let soloRanked = false;
+        let flexRanked = false;
 
+        ranqueadas.forEach(function(rank) {
+            console.log('rank', rank);
+            
+            if (rank.queueType === "RANKED_SOLO_5x5") {
+                $("#imgRankedSolo").attr('src', 'imgs/emblemas/Rank='+rank.tier+'.png');
+                rank.tier = traduzirTier(rank.tier);
+                $("#textRankedSolo").html(rank.tier + " "+ rank.rank);
+                $("#textRankedSoloPdl").html(rank.leaguePoints + " LP");
+                $("#textRankedSoloWinLose").html(rank.wins + " V " + rank.losses + " L");
 
+                
+                $("#textRankedSoloWinrate").html("Winrate "+calcularWinRate(rank.wins, rank.losses)+"%");
+                soloRanked = true;
+            }
+            if (rank.queueType === "RANKED_FLEX_SR") {
+                $("#imgRankedFlex").attr('src', 'imgs/emblemas/Rank='+rank.tier+'.png');
+                rank.tier = traduzirTier(rank.tier);
+                $("#textRankedFlex").html(rank.tier + " "+ rank.rank);
+                $("#textRankedFlexPdl").html(rank.leaguePoints + " LP");
+                $("#textRankedFlexWinLose").html(rank.wins + " V " + rank.losses + " L");
+
+                $("#textRankedFlexWinrate").html("Winrate "+calcularWinRate(rank.wins, rank.losses)+"%");
+                flexRanked = true;
+            }
+        });
+
+        if (!soloRanked) {
+            $("#textRankedSolo").html("Unranked").addClass('unranked');
+        }
+        if (!flexRanked) {
+            $("#textRankedFlex").html("Unranked").addClass('unranked');
+        }
+    }
+
+    
+    console.log('ranqueadas ', ranqueadas);
+}
+
+function traduzirTier(tier) {
+    switch (tier) {
+        case "IRON":
+            return "Ferro";
+        case "BRONZE":
+            return "Bronze";
+        case "SILVER":
+            return "Prata";
+        case "GOLD":
+            return "Ouro";
+        case "PLATINUM":
+            return "Platina";
+        case "EMERALD":
+            return "Esmeralda";
+        case "DIAMOND":
+            return "Diamante";
+        case "MASTER":
+            return "Mestre";
+        case "GRANDMASTER":
+            return "Grão Mestre";
+        case "CHALLENGER":
+            return "Desafiante";
+        default:
+            return tier;
+    }
+}
 
 
 
@@ -107,6 +192,17 @@ function pegarPartidaOnline(){
 
     
 }
+
+
+function calcularWinRate(vitorias, derrotas){
+    const totalJogos = vitorias + derrotas;
+    const winrate = (vitorias / totalJogos) * 100;
+    const winrateArredondado = Math.round(winrate); // pegar apenas os dois numeros antes da virgula 
+    // console.log('winrate', winrateArredondado); 
+    return winrateArredondado;
+}
+
+
 
 
 function mostrarMsg(idCampo, msg, tempoSec = 3, cor = 'danger'){
