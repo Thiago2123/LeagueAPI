@@ -28,6 +28,11 @@
 
     --text-color: #212529;
 
+    --victory-first-color: #28344E;
+    --victory-second-color: #5383E8;
+    --defeat-first-color: #59343B;
+    --defeat-second-color: #E84057;
+
     --purple-color: #6610f2;
     --orange-color: #d96411;
 }

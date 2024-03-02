@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt_br">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,8 @@
 
     <link rel="stylesheet" href="custom.css">
     <link rel="stylesheet" href="invocador.css">
-    <title>TM League - Invocador</title>
+    <link rel="stylesheet" href="historico.css">
+    <title>LolPedia - Invocador</title>
 </head>
 <body class="">
 
@@ -89,7 +90,7 @@
                     </div>
                 </div>
                 <div class="row col-3 rowPaiRankedSolo">
-                    <div class="row">
+                    <div class="row p-0 m-1">
                         <div class="col-12 divRankedSolo">
                             <span>Ranqueada Solo</span>
                             <hr style="color: var(--bg-color); border: 2px solid;">
@@ -129,6 +130,142 @@
 
                 </div>
             </div>
+            <div id="rowHistorico" class="row"> 
+                historico
+               <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#historicoTodasPartidas" type="button">Todos</button>
+                </li>
+                <li class="nav-item">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button">Ranqueada Solo/Duo</button>
+                </li>
+                <li class="nav-item">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button">Ranqueada Flex</button>
+                </li>
+                <li class="nav-item">
+                  <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" disabled>Modo de Jogo</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="historicoTodasPartidas">
+                    <!-- <div class="row rowPaiPartida">
+                        <div class="col-1 firstDecoration"></div>
+                        <div class="col-2 p-0 divPaiDadoPartida">
+                            <div class="row">
+                                <div class="col-12 textTipoPartida">Flex 5:5 Rank</div>
+                                <div class="col-12 textDataPartida">há 20 horas</div>
+                                <hr class="col-4" style="margin: 1rem 0px">
+                                <div class="col-12 textStatusPartida">Vitória</div>
+                                <div class="col-12 textTempoPartida">21:33</div>
+                            </div>
+                        </div>
+                        <div class="col-3 divPaiCampeaoPartida">
+                            <div class="row divCampeaoPartida">
+                                <div class="col-4">
+                                    <div class="divImgCampeaoPartida">
+                                        <span class="textoLvlPartida">18</span>
+                                        <img class="imgCampeaoPartidaJogado" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado">
+                                    </div>
+                                </div>
+                                <div class="col-5 divPaiSpellRunaPartida">
+                                    <div class="row divSpellPartida">
+                                        <img class="imgSpellPartida" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/spell/SummonerFlash.png" alt="">
+                                        <img class="imgSpellPartida" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/spell/SummonerBarrier.png" alt="">
+                                    </div>
+                                    <div class="row divRunaPartida">
+                                        <img class="imgRunaPartida" src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/Electrocute/Electrocute.png" alt="">
+                                        <img class="imgRunaPartida" src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7202_Sorcery.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="row p-0 m-0 divPaiKdaPartida">
+                                        <div class="col-12 textoKdaPartida">4/7/16</div>
+                                        <div class="col-12 p-0 textoKdaPartida2">2.86:1 KDA</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-0 divPaiItensPartida">
+                                <div class="col-12">
+                                    <img class="imgItensPartida" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/3871.png" alt="">
+                                    <img class="imgItensPartida" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/3504.png" alt="">
+                                    <img class="imgItensPartida" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/2065.png" alt="">
+                                    <img class="imgItensPartida" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/6616.png" alt="">
+                                    <img class="imgItensPartida" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/3158.png" alt="">
+                                    <img class="imgItensPartida" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/3222.png" alt="">
+                                    <img class="imgItensPartida" src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/item/3364.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2 divPaiStatisticasPartida">
+                            <div class="divStatisticasPartida">
+                                <div>p/Kill 50%</div>
+                                <div>Sentilenas de controle: 5</div>
+                                <div>Tropas 271(7.7)</div>
+                                <div>Gold 1</div>
+                            </div>
+                        </div>
+                        <div class="col-3 divPaiJogadoresPartida">
+                            <div class="row p-0 m-1" style="background-color: #28344E;">
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123aaaaaaaaaaaaaaaaaaaaaaa</span>
+                                </div>
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123bbbbbbbbbbbbbbbbbbbbbbb</span>
+                                </div>
+                            </div>
+                            <div class="row p-0 m-1" style="background-color: #28344E;">
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123</span>
+                                </div>
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123</span>
+                                </div>
+                            </div>
+                            <div class="row p-0 m-1" style="background-color: #28344E;">
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123</span>
+                                </div>
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123</span>
+                                </div>
+
+                            </div>
+                            <div class="row p-0 m-1" style="background-color: #28344E;">
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123</span>
+                                </div>
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123</span>
+                                </div>
+
+                            </div>
+                            <div class="row p-0 m-1" style="background-color: #28344E;">
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123</span>
+                                </div>
+                                <div class="col-6" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"> 
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.4.1/img/champion/Kaisa.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
+                                    <span>thiago2123</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1 lastDecoration"></div>
+                    </div> -->
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane">...</div>
+                <div class="tab-pane fade" id="contact-tab-pane">...</div>
+                <div class="tab-pane fade" id="disabled-tab-pane">...</div>
+              </div>
+            </div>
         </div>
         
     </div>
@@ -161,6 +298,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="js/function.js"></script>
         <script src="js/invocador.js"></script>
+        <script src="js/historico.js"></script>
 
 
 </body>

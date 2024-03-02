@@ -20,21 +20,11 @@ $(document).ready(function() {
 
 const requestApi = {
     baseApi:"https://br1.api.riotgames.com",
+    baseApiAmerica:"https://americas.api.riotgames.com",
     apiKey: "RGAPI-b33bec25-bf18-4b6e-bc15-47142874c034"
 };
 
 
-let versaoAPI;
-//returna a ultima versao da api do lol
-function verificaUltimaVersao(){
-    return fetch('https://ddragon.leagueoflegends.com/api/versions.json')
-        .then(response => response.json())
-        .then(data => {
-            versaoAPI = data[0];
-            $('#versaoLol').text(versaoAPI);
-            // console.log("versaoAPI ",data);
-        });
-}
 
 let box_img = document.getElementById('box-img');
 

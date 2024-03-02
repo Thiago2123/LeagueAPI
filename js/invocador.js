@@ -1,20 +1,15 @@
 
 const requestApi = {
     baseApi:"https://br1.api.riotgames.com",
+    baseApiAmerica:"https://americas.api.riotgames.com",
     apiKey: "RGAPI-b33bec25-bf18-4b6e-bc15-47142874c034",
-    // nome: "nhamih"
 };
-
-
-
-
-
 
 
 function procurarInvocador(){
     const nomeInvocador = $('#input_nome').val();
     const tagInvocador = $('#input_tag').val();
-    console.log('nomeInvocador', nomeInvocador);
+    // console.log('nomeInvocador', nomeInvocador);
 
     // verificar se os campos estão em branco
     if(nomeInvocador === '' || tagInvocador === ''){
@@ -25,7 +20,6 @@ function procurarInvocador(){
     }
 
     var data = fazGet('https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/'+nomeInvocador+'/'+tagInvocador+'?api_key='+requestApi.apiKey+'');
-    // data = fazGet('https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/thiago2123/br1?api_key=RGAPI-b33bec25-bf18-4b6e-bc15-47142874c034');
     // console.log('data',data.puuid);
     
     if(data.status_code === 404){
@@ -44,6 +38,8 @@ function buscarDadosInvocador(){
     const nomeInvocador = procurarInvocador();
     if(nomeInvocador){
         var data = fazGet(requestApi.baseApi+'/lol/summoner/v4/summoners/by-puuid/'+nomeInvocador.puuid+'?api_key='+requestApi.apiKey+'');
+        
+        buscarIdsPartidaDoHistorico(data.puuid);
         // console.log('buscarDadosInvocador', data);
 
         $("#imgInvocador").attr('src', 'https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/'+data.profileIconId+'.png');
@@ -52,62 +48,68 @@ function buscarDadosInvocador(){
         
 
         $("#rowInvocador").removeClass('d-none');
-        return data.id
+        return data.id;
+    }else{
+        $("#rowInvocador").addClass('d-none');
+        return false;
     }
+
 }
 
 function buscarDadosRanked() {
     const idSummoner = buscarDadosInvocador();
-    $("#textRankedSolo, #textRankedFlex, #textRankedFlexPdl, #textRankedSoloPdl").html("");
-    $("#imgRankedFlex, #imgRankedSolo").attr("src", "");
-    
-    var ranqueadas = fazGet(requestApi.baseApi+'/lol/league/v4/entries/by-summoner/'+idSummoner+'?api_key='+requestApi.apiKey+'');
-    console.log('ranqueadas', ranqueadas);
-    
-    if (ranqueadas.length == 0) {
-        $("#textRankedSolo, #textRankedFlex").html("Unranked").addClass('unranked');
+    if(idSummoner){
+        $("#textRankedSolo, #textRankedFlex, #textRankedFlexPdl, #textRankedSoloPdl").html("");
+        $("#imgRankedFlex, #imgRankedSolo").attr("src", "");
+        
+        var ranqueadas = fazGet(requestApi.baseApi+'/lol/league/v4/entries/by-summoner/'+idSummoner+'?api_key='+requestApi.apiKey+'');
+        // console.log('ranqueadas', ranqueadas);
+        
+        if (ranqueadas.length == 0) {
+            $("#textRankedSolo, #textRankedFlex").html("Unranked").addClass('unranked');
 
-    } else {
-        $("#textRankedSolo, #textRankedFlex").removeClass('unranked');
-        let soloRanked = false;
-        let flexRanked = false;
+        } else {
+            $("#textRankedSolo, #textRankedFlex").removeClass('unranked');
+            let soloRanked = false;
+            let flexRanked = false;
 
-        ranqueadas.forEach(function(rank) {
-            console.log('rank', rank);
-            
-            if (rank.queueType === "RANKED_SOLO_5x5") {
-                $("#imgRankedSolo").attr('src', 'imgs/emblemas/Rank='+rank.tier+'.png');
-                rank.tier = traduzirTier(rank.tier);
-                $("#textRankedSolo").html(rank.tier + " "+ rank.rank);
-                $("#textRankedSoloPdl").html(rank.leaguePoints + " LP");
-                $("#textRankedSoloWinLose").html(rank.wins + " V " + rank.losses + " L");
-
+            ranqueadas.forEach(function(rank) {
+                // console.log('rank', rank);
                 
-                $("#textRankedSoloWinrate").html("Winrate "+calcularWinRate(rank.wins, rank.losses)+"%");
-                soloRanked = true;
-            }
-            if (rank.queueType === "RANKED_FLEX_SR") {
-                $("#imgRankedFlex").attr('src', 'imgs/emblemas/Rank='+rank.tier+'.png');
-                rank.tier = traduzirTier(rank.tier);
-                $("#textRankedFlex").html(rank.tier + " "+ rank.rank);
-                $("#textRankedFlexPdl").html(rank.leaguePoints + " LP");
-                $("#textRankedFlexWinLose").html(rank.wins + " V " + rank.losses + " L");
+                if (rank.queueType === "RANKED_SOLO_5x5") {
+                    $("#imgRankedSolo").attr('src', 'imgs/emblemas/Rank='+rank.tier+'.png');
+                    rank.tier = traduzirTier(rank.tier);
+                    $("#textRankedSolo").html(rank.tier + " "+ rank.rank);
+                    $("#textRankedSoloPdl").html(rank.leaguePoints + " LP");
+                    $("#textRankedSoloWinLose").html(rank.wins + " V " + rank.losses + " L");
 
-                $("#textRankedFlexWinrate").html("Winrate "+calcularWinRate(rank.wins, rank.losses)+"%");
-                flexRanked = true;
-            }
-        });
+                    
+                    $("#textRankedSoloWinrate").html("Winrate "+calcularWinRate(rank.wins, rank.losses)+"%");
+                    soloRanked = true;
+                }
+                if (rank.queueType === "RANKED_FLEX_SR") {
+                    $("#imgRankedFlex").attr('src', 'imgs/emblemas/Rank='+rank.tier+'.png');
+                    rank.tier = traduzirTier(rank.tier);
+                    $("#textRankedFlex").html(rank.tier + " "+ rank.rank);
+                    $("#textRankedFlexPdl").html(rank.leaguePoints + " LP");
+                    $("#textRankedFlexWinLose").html(rank.wins + " V " + rank.losses + " L");
 
-        if (!soloRanked) {
-            $("#textRankedSolo").html("Unranked").addClass('unranked');
+                    $("#textRankedFlexWinrate").html("Winrate "+calcularWinRate(rank.wins, rank.losses)+"%");
+                    flexRanked = true;
+                }
+            });
+
+            if (!soloRanked) {
+                $("#textRankedSolo").html("Unranked").addClass('unranked');
+            }
+            if (!flexRanked) {
+                $("#textRankedFlex").html("Unranked").addClass('unranked');
+            }
         }
-        if (!flexRanked) {
-            $("#textRankedFlex").html("Unranked").addClass('unranked');
-        }
+
+        
+        // console.log('ranqueadas ', ranqueadas);
     }
-
-    
-    console.log('ranqueadas ', ranqueadas);
 }
 
 function traduzirTier(tier) {
@@ -146,7 +148,7 @@ function pegarIdSummoner(){
     
     if(data != null){
         usuario = JSON.parse(data);
-        console.log("PEGOU ID: ", usuario.id);
+        // console.log("PEGOU ID: ", usuario.id);
         id_cripitografado = usuario.id;
         return id_cripitografado;
     }else{
@@ -166,7 +168,7 @@ function pegarPartidaOnline(){
         
         pegarPartidaAtiva = fazGet(requestApi.baseApi+'/lol/spectator/v4/active-games/by-summoner/'+id_cripitografado+'?api_key='+requestApi.apiKey+'');
         partidaAtiva = JSON.parse(pegarPartidaAtiva);
-        console.log(partidaAtiva.status.status_code);
+        // console.log(partidaAtiva.status.status_code);
 
         if(partidaAtiva.status.status_code != 200){
            $("#msg").html(partidaAtiva.status.message);
