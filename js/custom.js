@@ -134,7 +134,11 @@ function abrirModalChampion(champion){
     
                 // Criar elemento div testimonialBox
                 const divTestimonialBox = $('<div class="testimonialBox"></div>');
-    
+                
+                // resolvendo o bug das skins do fiddle que a key champion está errada na api ddragon
+                if(numSkin > 8 && champion == "Fiddlesticks"){
+                    champion = "FiddleSticks";
+                }
                 // Criar o elemento img
                 const img = $('<img>', {
                     src: "https://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+ champion+ "_" + numSkin + ".jpg",
@@ -184,7 +188,7 @@ function abrirModalChampion(champion){
             $('#divSkills').append(divSpell);
 
             const imgPassive = $('<img>', {
-                src: "https://ddragon.leagueoflegends.com/cdn/14.3.1/img/passive/"+championDetails.passive.image.full,
+                src: "https://ddragon.leagueoflegends.com/cdn/"+versaoAPI+"/img/passive/"+championDetails.passive.image.full,
                 alt: "passive"
             });
 
@@ -211,7 +215,7 @@ function abrirModalChampion(champion){
                 divSpell.append(spanSpell);
 
                 const imgSpell = $('<img>', {
-                    src: "https://ddragon.leagueoflegends.com/cdn/14.3.1/img/spell/"+spell.image.full,
+                    src: "https://ddragon.leagueoflegends.com/cdn/"+versaoAPI+"/img/spell/"+spell.image.full,
                     alt: "Spell_"+teclaSpell
                 });
                 

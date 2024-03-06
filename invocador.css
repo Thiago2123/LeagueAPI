@@ -107,3 +107,20 @@
 .divTextRankedSolo, .divTextRankedFlex{
     padding: 0;
 }
+
+
+.progress {
+    height: 130px;    /* altura do progresso vertical */
+    border-radius: 10px;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column-reverse; /* para tornar o progresso de cima para baixo */
+  }
+
+  .progress-bar {
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

@@ -35,19 +35,33 @@ function procurarInvocador(){
 
 
 function buscarDadosInvocador(){
+    const versaoAPI = verificaUltimaVersaoV2();
     const nomeInvocador = procurarInvocador();
     if(nomeInvocador){
         var data = fazGet(requestApi.baseApi+'/lol/summoner/v4/summoners/by-puuid/'+nomeInvocador.puuid+'?api_key='+requestApi.apiKey+'');
         
-        buscarIdsPartidaDoHistorico(data.puuid);
+        const idPartidas = buscarIdsPartidaDoHistorico(data.puuid);
+        const posicoesJogadas = buscarDadosDaPartida(idPartidas, data.puuid);
+
+        console.log('posicoesJogadas', posicoesJogadas);
         // console.log('buscarDadosInvocador', data);
 
-        $("#imgInvocador").attr('src', 'https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/'+data.profileIconId+'.png');
+        $("#imgInvocador").attr('src', 'https://ddragon.leagueoflegends.com/cdn/'+versaoAPI+'/img/profileicon/'+data.profileIconId+'.png');
         $("#spanInvocadorLvl").html(data.summonerLevel);
         $("#nomeInvocador").html(`<h3><strong>${data.name}</strong><span> #${nomeInvocador.tag} </span</h3>`);
         
-
+        
         $("#rowInvocador").removeClass('d-none');
+        
+        $("#textBarraDeContagem").text(`Posições mais jogadas nas em ${idPartidas.length} partidas`);
+
+        $("#progressBarTop").css('height', `${(posicoesJogadas.top / idPartidas.length) * 100}%`).text(posicoesJogadas.top);
+        $("#progressBarJg").css('height', `${(posicoesJogadas.jg / idPartidas.length) * 100}%`).text(posicoesJogadas.jg);
+        $("#progressBarMid").css('height', `${(posicoesJogadas.mid / idPartidas.length) * 100}%`).text(posicoesJogadas.mid);
+        $("#progressBarAdc").css('height', `${(posicoesJogadas.adc / idPartidas.length) * 100}%`).text(posicoesJogadas.adc);
+        $("#progressBarSup").css('height', `${(posicoesJogadas.sup / idPartidas.length) * 100}%`).text(posicoesJogadas.sup);
+      
+
         return data.id;
     }else{
         $("#rowInvocador").addClass('d-none');

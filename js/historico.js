@@ -8,7 +8,7 @@ function buscarIdsPartidaDoHistorico(puuid){
     const countIdPartidas = "5";
     const partidasId = fazGet(requestApi.baseApiAmerica+"/lol/match/v5/matches/by-puuid/"+puuid+"/ids?&start=0&count="+countIdPartidas+"&api_key="+requestApi.apiKey);
     // console.log(partidasId);
-    return buscarDadosDaPartida(partidasId, puuid);
+    return partidasId
 
 }
 
@@ -20,6 +20,13 @@ function buscarDadosDaPartida(partidasId, puuid){
     const summonerSpells = fazGet("https://ddragon.leagueoflegends.com/cdn/"+versaoAPI+"/data/pt_BR/summoner.json");
     const runasJson = fazGet("https://ddragon.leagueoflegends.com/cdn/"+versaoAPI+"/data/pt_BR/runesReforged.json");
     const itensJson = fazGet("https://ddragon.leagueoflegends.com/cdn/"+versaoAPI+"/data/pt_BR/item.json");
+    
+    let posicoesJogadas;
+    let top = 0;
+    let jungle = 0;
+    let mid = 0;
+    let adc = 0;
+    let support = 0;
 
     // console.log(runasJson);
     idPartidas.forEach(idpartida => {
@@ -69,6 +76,26 @@ function buscarDadosDaPartida(partidasId, puuid){
                 vitoria = participante.win;
                 
                 console.log('participante', participante);
+                switch (participante.teamPosition) {
+                    case "TOP":
+                        top++;
+                        break;
+                    case "JUNGLE":
+                        jungle++;
+                        break;
+                    case "MIDDLE":
+                        mid++;
+                        break;
+                    case "UTILITY":
+                        support++;
+                        break;
+                    case "BOTTOM":
+                        adc++;
+                        break;
+                    default:
+                        break;
+                }
+                posicoesJogadas = {"top" : top, "jg" : jungle, "mid" : mid, "adc" : adc, "sup" : support};
             }
             
             
@@ -80,7 +107,8 @@ function buscarDadosDaPartida(partidasId, puuid){
                 puuid : participante.puuid
             });
         });
-        console.log("jogadoresNaPartida", jogadoresNaPartida);
+        // console.log("jogadoresNaPartida", jogadoresNaPartida);
+       
         
         
         // Separe os jogadores em dois arrays diferentes com base no time
@@ -96,10 +124,10 @@ function buscarDadosDaPartida(partidasId, puuid){
         jogadoresTimeAzul.forEach(jogador => {
             htmlJogadoresTimeAzul += `
             <div class="meuTooltip">
-                <div class="p-0 m-0">
+                <div class="p-0 m-0" style="min-width:100px">
                     <div class="" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;"> 
                         <img src="https://ddragon.leagueoflegends.com/cdn/${versaoAPI}/img/champion/${jogador.campeao}.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
-                        <span style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; ${puuid == jogador.puuid ? "font-weight: bold;" : "" }">${jogador.nome}</span>
+                        <span style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; ${puuid == jogador.puuid ? "font-weight: bold;" : "" }">${jogador.nome === "" ? jogador.nomeRiot : jogador.nome}</span>
                     </div>
                 </div>
                 <span class="tooltiptext" style="width: max-content;"">
@@ -111,10 +139,10 @@ function buscarDadosDaPartida(partidasId, puuid){
         jogadoresTimeVermelho.forEach(jogador => {
             htmlJogadoresTimeVermelho += `
             <div class="meuTooltip">
-                <div class="p-0 m-0 ">
+                <div class="p-0 m-0 " style="min-width:100px">
                 <div class="" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;"> 
                         <img src="https://ddragon.leagueoflegends.com/cdn/${versaoAPI}/img/champion/${jogador.campeao}.png" alt="campeaoJogado" style="width: 30px; padding: 0; margin: 0;">
-                        <span style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; ${puuid == jogador.puuid ? "font-weight: bold;" : "" }">${jogador.nome}</span>
+                        <span style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; ${puuid == jogador.puuid ? "font-weight: bold;" : "" }">${jogador.nome === "" ? jogador.nomeRiot : jogador.nome}</span>
                     </div>
                 </div>
                 <span class="tooltiptext" style="width: max-content;">
@@ -291,7 +319,7 @@ function buscarDadosDaPartida(partidasId, puuid){
                                         ${itens.item4 !== 0 ? `<img class="imgItensPartida" src="https://ddragon.leagueoflegends.com/cdn/${versaoAPI}/img/item/${itens.item4}.png" alt="item1"> 
                                             <span class="tooltiptext">
                                                 <div style="color:rgb(0, 207, 188); font-weight: bold;">${dadosItens.item4.name}</div>
-                                                <div>${dadosItens.item6.plaintext}</div>
+                                                <div>${dadosItens.item4.plaintext}</div>
                                                 <br>
                                                 <div>${dadosItens.item4.description}</div>
                                                 <br>
@@ -345,11 +373,11 @@ function buscarDadosDaPartida(partidasId, puuid){
                                 </div>
                             </div>
                             <div class="col-2 p-0 divPaiJogadoresPartida ${classeDerrota}" style="width: 7%;">
-                                <h6>Time Azul</h6>
+                                <h7>Time Azul</h7>
                                 ${htmlJogadoresTimeAzul}
                             </div>
                             <div class="col-2 p-0 divPaiJogadoresPartida ${classeDerrota}" style="width: 7%;">
-                                <h6>Time Vermelho</h6>
+                                <h7>Time Vermelho</h7>
                                 ${htmlJogadoresTimeVermelho}
                             </div>
                             <div class="col-1 lastDecoration ${classeDerrota}"></div>
@@ -361,6 +389,11 @@ function buscarDadosDaPartida(partidasId, puuid){
         console.log(dadosPartida);
     });
     // console.log(idPartidas);
+    // console.log("posicoesJogadas", posicoesJogadas);
+
+    return posicoesJogadas;
+ 
+    
 }
 
 
@@ -411,3 +444,8 @@ function obterDadosItens(jogadorItens, todosItens) {
 
     return dadosItensJogador;
 }
+
+
+function calcularPorcentagem(height, maxValue) {
+    return (height / maxValue) * 100;
+  }
